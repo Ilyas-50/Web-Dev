@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>facebook</title>
+    <style>
+    body{
+        font-family: system-ui, sans-serif;
+        background-color: rgb(243, 244, 247);
+    }
+    h1{
+    	color: rgb(9, 103, 255);
+        font-size: 56px;
+        margin-bottom: 0;
+    }
+    .container{
+        display: flex;
+        flex-direction: row;
+        /* align-content: center; */
+        justify-content: center;
+        align-items: center;
+        
+        min-height: 100vh;
+        gap: 50px;
+    }
+    .itemLeft{
+        order: 1;
+    }
+    /*cancel left if*/
+    @media (max-width: 900px) { 
+        .itemLeft {
+        display: none; 
+        }
+    }
+    .itemRight{
+        order: 2;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        /*white rect*/
+        width: 350px;
+        background: white;
+        border-radius: 8px;
+        padding: 30px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        
+    }
+    input {
+        padding: 14px 16px;         
+        font-size: 17px;           
+        border: 1px solid #dddfe2;  
+        border-radius: 6px;        
+        outline: none;            
+    }
+
+    input:focus {
+        border-color: #1877f2;
+    }
+
+    .login-btn {
+        background-color: #1877f2;
+        border: none;
+        border-radius: 6px;
+        color: white;
+        font-size: 20px;
+        font-weight: bold;
+        padding: 10px;
+        cursor: pointer;
+    }
+
+    .login-btn:hover {
+        background-color: #166fe5;
+    }
+
+    .create-btn {
+        background-color: #42b72a;
+        border: none;
+        border-radius: 6px;
+        color: white;
+        font-size: 17px;
+        padding: 10px 16px;
+        cursor: pointer;
+        align-self: center;
+        margin-top: 10px;
+    }
+
+    .create-btn:hover {
+        background-color: #36a420;
+    }
+
+    a {
+    color: #1877f2;
+    text-decoration: none;
+    font-size: 14px;
+    text-align: center;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+    </style>
+</head>
+
+
+<body>
+    <div class = "container">
+        <div class = "itemLeft">
+            <h1 class="title">facebook</h1>
+            <p>Facebook helps you always <br>
+                stay connected and connect with me<br>
+                your friends.</p>
+        </div>
+            <div class = "itemRight">
+            <input type="text" placeholder="Email or telephone number">
+            <input type="password" placeholder="Password">
+            <button class="login-btn">Login</button>
+            <a href="#">Forgot your password?</a>
+                <button class="create-btn">Create new account</button>
+        </div>
+    </div>
+</body>
+</html>
