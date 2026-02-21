@@ -1,0 +1,109 @@
+.card {
+  border: 1px solid #eaeaea;
+  border-radius: 10px;
+  width: 240px;
+  min-height: 500px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  transform: translateY(-3px);
+}
+
+.icons,
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  margin-top: auto;
+  gap: 6px;
+}
+
+.productimage,
+.carouselimage {
+  height: 200px;
+  width: 100%;
+  object-fit: contain;
+  border-radius: 6px;
+  background-color: #fafafa;
+}
+
+.icon {
+  height: 55px;
+  width: 55px;
+  transition: transform 0.2s ease;
+}
+
+.icon:hover {
+  transform: scale(1.08);
+}
+
+h2 {
+  font-weight: 500;
+  font-size: 15px;
+  margin: 8px 0;
+  line-height: 1.4;
+}
+
+a,
+a:visited {
+  text-decoration: none;
+  color: #0077b6;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: #005f8f;
+}
+
+#telegram {
+  width: 80%;
+}
+
+details p {
+  max-height: 200px;
+  overflow: auto;
+  font-size: 14px;
+  color: #555;
+  line-height: 1.4;
+}
+
+.buttons button {
+  flex: 1;
+  padding: 6px 0;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  background-color: #f8f8f8;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.buttons button:hover {
+  background-color: #ececec;
+}
+
+.buttons button:active {
+  transform: scale(0.97);
+}
+
+.thumbnails {
+  position: relative;
+  display: flex;
+  gap: 6px;
+  margin-top: 6px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
