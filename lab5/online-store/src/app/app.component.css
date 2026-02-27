@@ -1,0 +1,47 @@
+.category-container {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  padding: 20px;
+  flex-wrap: wrap;
+}
+
+.category-card {
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 15px;
+  width: 250px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.category-card:hover {
+  border-color: #007bff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.category-card.selected {
+  border: 2px solid #007bff;
+}
+
+.category-name {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #333;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.category-desc {
+  font-size: 0.85rem;
+  color: #777;
+}
+
+.welcome-message {
+  text-align: center;
+  margin-top: 100px;
+  color: #555;
+}

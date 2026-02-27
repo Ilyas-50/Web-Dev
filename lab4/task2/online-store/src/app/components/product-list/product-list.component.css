@@ -1,3 +1,32 @@
+.search-container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.search-container label {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.search-container input {
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+
+}
+
+.search-container input:focus {
+  outline: none;
+  border-color: #0077b6;
+}
+
 .products-list {
   display: flex;
   background-color: #f7f7f7;
@@ -5,4 +34,11 @@
   justify-content: center;
   gap: 20px;
   padding: 20px;
+}
+
+.no-products {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #888;
+  margin-top: 50px;
 }

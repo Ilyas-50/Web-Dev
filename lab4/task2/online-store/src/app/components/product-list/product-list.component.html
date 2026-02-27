@@ -1,3 +1,18 @@
-<div class="products-list" >
-  <product-card *ngFor="let pr of products" [product]="pr"></product-card>
+<div class="search-container">
+  <label for="search">Search products</label>
+  <input
+    id="search"
+    type="text"
+    [(ngModel)]="searchQuery"
+    (input)="filterProducts()"
+    placeholder="Search!!!!"  
+  />
+</div>
+
+<div class="products-list">
+  <product-card *ngFor="let pr of filteredProducts" [product]="pr"></product-card>
+</div>
+
+<div *ngIf="filteredProducts.length === 0" class="no-products">
+  <p>No products found</p>
 </div>

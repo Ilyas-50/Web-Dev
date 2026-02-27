@@ -1,0 +1,26 @@
+<div class="category-container">
+  @for (c of categories; track c.id) {
+    <button 
+      class="category-card" 
+      (click)="selectCategory(c.id)" 
+      [class.selected]="c.id === categoryId">
+      
+      <span class="category-name">{{c.name}}</span>
+      <span class="category-desc">{{c.description}}</span>
+    </button>
+  }
+</div>
+
+<div class="content-area">
+  @if (categoryId === null) {
+    <div class="welcome-message">
+      <h2>Всем привееет!!!</h2>
+      <p>Выберите категорию выше, чтобы увидеть список товаров</p>
+    </div>
+  } @else {
+    <product-list 
+      [products]="products" 
+      (deleteProduct)="onDeleteProduct($event)">
+    </product-list>
+  }
+</div>

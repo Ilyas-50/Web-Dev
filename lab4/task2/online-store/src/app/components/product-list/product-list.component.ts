@@ -1,212 +1,131 @@
-import {Product} from '../../models/product.model';
-import {Component} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {ProductCardComponent} from '../product-card/product-card.component';
+import { Product } from '../../models/product.model';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { ProductCardComponent } from '../product-card/product-card.component';
 
 @Component({
   selector: 'product-list',
   standalone: true,
-  imports: [CommonModule, ProductCardComponent],
+  imports: [CommonModule, ProductCardComponent, FormsModule],
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css'],
 })
-export class ProductListComponent {
-  products: Product[] = [{
-    id: 112809322,
-    name: 'Смартфон OPPO A78 8 ГБ/256 ГБ зеленый',
-    description: 'OPPO A78 8 ГБ/256 ГБ — это стильный и производительный смартфон с ярким AMOLED-дисплеем и ёмким аккумулятором на 5000 мА·ч. Идеальный выбор для тех, кто ценит комфорт и функциональность в повседневном использовании.\n' +
-      '\n' +
-      '✨ Особенности:\n' +
-      '- ✅ 8 ГБ оперативной памяти — для плавной работы приложений и многозадачности.\n' +
-      '- 🧱 256 ГБ встроенной памяти — хватит места для всех ваших файлов и фотографий.\n' +
-      '- 🌱 Двойная камера 50 Мп — создавайте чёткие и яркие снимки в любых условиях.\n' +
-      '\n' +
-      '    OPPO A78 станет вашим надёжным спутником в работе, учебе и развлечениях. Благодаря поддержке NFC вы сможете удобно оплачивать покупки и пользоваться другими современными сервисами.',
-    price: 109990,
-    rating: 4.9,
-    image: 'https://resources.cdn-kaspi.kz/img/m/p/h07/hfb/83109614714910.jpg',
-    images: ['https://resources.cdn-kaspi.kz/img/m/p/p4e/pab/64514776.png',
-      'https://resources.cdn-kaspi.kz/img/m/p/pf9/paa/64514779.png',
-      'https://resources.cdn-kaspi.kz/img/m/p/p8d/pa8/64514780.png'],
-    link: 'https://kaspi.kz/shop/p/oppo-a78-8-gb-256-gb-zelenyi-112809322/'
-  },
+export class ProductListComponent implements OnInit {
+  searchQuery: string = '';
+  filteredProducts: Product[] = [];
+
+  products: Product[] = [
+    {
+      id: 112809322,
+      name: 'Смартфон OPPO A78 8 ГБ/256 ГБ зеленый',
+      description: 'OPPO A78 8 ГБ/256 ГБ — это стильный и производительный смартфон...',
+      price: 109990,
+      rating: 4.9,
+      image: 'https://resources.cdn-kaspi.kz/img/m/p/h07/hfb/83109614714910.jpg',
+      images: ['https://resources.cdn-kaspi.kz/img/m/p/p4e/pab/64514776.png', 'https://resources.cdn-kaspi.kz/img/m/p/pf9/paa/64514779.png', 'https://resources.cdn-kaspi.kz/img/m/p/p8d/pa8/64514780.png'],
+      link: 'https://kaspi.kz/shop/p/oppo-a78-8-gb-256-gb-zelenyi-112809322/'
+    },
     {
       id: 101115165,
       name: 'Видеокарта GIGABYTE GeForce RTX 3060 GAMING OC 12GB',
-      description: 'Система охлаждения WINDFORCE 3X включает 3 уникальных лопастных вентилятора по 80 мм, альтернативное вращение, 5 композитных медных тепловых трубок с прямым контактом с графическим процессором, функции 3D Active Fan и Screen cooling, которые вместе обеспечивают высокоэффективный отвод тепла.\n' +
-        '\n' +
-        'Благодаря 16.7 млн ​​настраиваемых оттенков цвета и многочисленным эффектам вы можете выбирать световые эффекты или синхронизировать подсветку с другими устройствами.',
+      description: 'Система охлаждения WINDFORCE 3X...',
       price: 269990,
       rating: 4.8,
       image: 'https://resources.cdn-kaspi.kz/img/m/p/h0f/h27/64026161971230.jpg',
-      images: ['https://resources.cdn-kaspi.kz/img/m/p/hf2/h6e/64026167672862.jpg',
-        'https://resources.cdn-kaspi.kz/img/m/p/hb3/h27/64026171277342.jpg',
-        'https://resources.cdn-kaspi.kz/img/m/p/h63/h4a/64026164985886.jpg'],
+      images: ['https://resources.cdn-kaspi.kz/img/m/p/hf2/h6e/64026167672862.jpg', 'https://resources.cdn-kaspi.kz/img/m/p/hb3/h27/64026171277342.jpg', 'https://resources.cdn-kaspi.kz/img/m/p/h63/h4a/64026164985886.jpg'],
       link: 'https://kaspi.kz/shop/p/gigabyte-geforce-rtx-3060-gaming-oc-12gb-101115165/'
     },
     {
       id: 104151899,
       name: 'Блок питания Deepcool PF550 R-PF550D-HA0B-EU 550 Вт',
-      description: 'Блок питания Deepcool PF550 R-PF550D-HA0B-EU демонстрирует общую выходную мощность по всем линиям на уровне 550 Вт, что позволяет применять его в системном блоке домашней станции, мультимедийного ПК или игрового компьютера начального уровня. В БП предусмотрены кабели черного цвета с разъемами 20 + 4 pin (основной разъем питания), 4+4 pin CPU (для подключения процессора), 6x SATA (для накопителей), 6+2 pin x2 PCI-E (для видеокарт).\n' +
-        '\n' +
-        'Блок питания Deepcool PF550 R-PF550D-HA0B-EU выполнен в форм-факторе ATX и укомплектован сетевым шнуром. Модель предполагает работу от сети при входном напряжении 200-240 В. БП с активным корректором коэффициента мощности оснащается активной системой охлаждения с вентилятором размером 120x120 мм. Обороты кулера задаются автоматикой в соответствии с текущей нагрузкой блока питания.',
+      description: 'Блок питания Deepcool PF550...',
       price: 22990,
       rating: 4.8,
       image: 'https://resources.cdn-kaspi.kz/img/m/p/h80/he9/86350817132574.png',
-      images: ['https://resources.cdn-kaspi.kz/img/m/p/hab/h0b/86350817165342.jpg',
-        'https://resources.cdn-kaspi.kz/img/m/p/h27/hff/86350817198110.jpg',
-        'https://resources.cdn-kaspi.kz/img/m/p/h65/h70/86350817230878.jpg'],
+      images: ['https://resources.cdn-kaspi.kz/img/m/p/hab/h0b/86350817165342.jpg', 'https://resources.cdn-kaspi.kz/img/m/p/h27/hff/86350817198110.jpg', 'https://resources.cdn-kaspi.kz/img/m/p/h65/h70/86350817230878.jpg'],
       link: 'https://kaspi.kz/shop/p/deepcool-pf550-r-pf550d-ha0b-eu-550-vt-104151899/'
     },
     {
       id: 100956618,
       name: 'Мышь Logitech G102 Lightsync черный',
-
-      description: 'Мышь проводная Logitech G102 LightSync позволяет играть с максимальной эффективностью. В мышке применяется датчик игрового уровня с чувствительностью 8000 dpi, регулируемой в широком диапазоне отдельной кнопкой. Logitech G102 LightSync оснащена 6 программируемыми кнопками. В левой и правой кнопках используется металлический пружинный механизм для исключительно точного срабатывания.\n' +
-        '\n' +
-        'Конструкция корпуса обтекаемой формы гарантирует комфорт и точность движений. Система подсветки RGB с фирменной технологией LIGHTSYNC позволяет создать собственный игровой стиль с помощью 16.8 млн оттенков и анимированных эффектов.\n' +
-        '\n' +
-        'Внимание покупателей: данная модель мыши обязательно должна подключаться к софту G-HUB, все настройки мыши, подсветка , чувствительность настраиваются исключительно в G-HUB.',
+      description: 'Мышь проводная Logitech G102 LightSync...',
       price: 6998,
       rating: 4.9,
       image: 'https://resources.cdn-kaspi.kz/img/m/p/hb2/hc2/64119540187166.jpg',
-      images: ['https://resources.cdn-kaspi.kz/img/m/p/pc7/p9b/105790332.jpeg',
-        'https://resources.cdn-kaspi.kz/img/m/p/ha5/h08/64119543070750.jpg',
-        'https://resources.cdn-kaspi.kz/img/m/p/h50/hea/64119545036830.jpg'],
+      images: ['https://resources.cdn-kaspi.kz/img/m/p/pc7/p9b/105790332.jpeg', 'https://resources.cdn-kaspi.kz/img/m/p/ha5/h08/64119543070750.jpg', 'https://resources.cdn-kaspi.kz/img/m/p/h50/hea/64119545036830.jpg'],
       link: 'https://kaspi.kz/shop/p/logitech-g102-lightsync-chernyi-100956618/'
     },
     {
       id: 102073038,
       name: 'Ноутбук HP 15s 15.6" / 8 Гб / SSD 512 Гб / Win 10 / 15s-fq2074ur / 4A793EA',
-      description: 'Занимайтесь важными делами сколько потребуется. Этот тонкий и компактный ноутбук оснащен емким аккумулятором и экраном с узкими рамками. Надежный ноутбук HP с большим экраном 15" — хороший помощник в делах и развлечениях. Просматривайте веб-страницы, транслируйте видео и выполняйте другие задачи.\n' +
-        '\n' +
-        'Максимальный обзор на экране с тонкими рамками толщиной всего 6,5 мм. Этот тонкий и легкий ноутбук удобно брать с собой.\n' +
-        '\n' +
-        'Мощный процессор Intel поможет справиться с самыми сложными задачами. Благодаря емкому накопителю вы сможете хранить еще больше данных — все свои фото, видео и документы.\n' +
-        '\n' +
-        'Аккумулятор с длительным временем работы и технология быстрой зарядки HP Fast Charge позволяют работать, просматривать видео и оставаться на связи на протяжении всего дня. Встроенный сверхточный тачпад с поддержкой распознавания жестов несколькими пальцами позволяет ускорить навигацию и повысить производительность.',
+      description: 'Занимайтесь важными делами сколько потребуется...',
       price: 298663,
       rating: 4.9,
       image: 'https://resources.cdn-kaspi.kz/img/m/p/h08/he4/64217326780446.jpg',
-      images: ['https://resources.cdn-kaspi.kz/img/m/p/h76/hf3/64217330614302.jpg',
-        'https://resources.cdn-kaspi.kz/img/m/p/h38/hdd/64217333825566.jpg',
-        'https://resources.cdn-kaspi.kz/img/m/p/hf6/hc8/64217336447006.jpg'],
+      images: ['https://resources.cdn-kaspi.kz/img/m/p/h76/hf3/64217330614302.jpg', 'https://resources.cdn-kaspi.kz/img/m/p/h38/hdd/64217333825566.jpg', 'https://resources.cdn-kaspi.kz/img/m/p/hf6/hc8/64217336447006.jpg'],
       link: 'https://kaspi.kz/shop/p/hp-15s-15-6-8-gb-ssd-512-gb-win-10-15s-fq2074ur-4a793ea-102073038/'
     },
     {
       id: 140639712,
       name: 'Планшет Xiaomi Redmi Pad 2 11 дюйм 8 Гб/256 Гб серый',
-      description: 'Xiaomi Redmi Pad 2 — универсальный планшет с ярким 11-дюймовым экраном и мощным процессором MediaTek Helio G100 Ultra для работы и развлечений.\n' +
-        '\n' +
-        '✨ Особенности:\n' +
-        '- ✅ 8 Гб оперативной памяти — для плавной работы в многозадачном режиме.\n' +
-        '- 🧱 256 Гб встроенной памяти — хватит места для всех ваших файлов и приложений.\n' +
-        '- 🌱 Ёмкий аккумулятор на 9000 мА·ч — дольше работайте без подзарядки.\n' +
-        '\n' +
-        'Идеален для студентов, школьников и всех, кто любит смотреть видео, читать книги и работать с документами в дороге или дома. ',
+      description: 'Xiaomi Redmi Pad 2 — универсальный планшет...',
       price: 107629,
       rating: 5,
       image: 'https://resources.cdn-kaspi.kz/img/m/p/pac/p7a/81439516.jpg',
-      images: ['https://resources.cdn-kaspi.kz/img/m/p/p24/p44/46204507.png',
-        'https://resources.cdn-kaspi.kz/img/m/p/pec/p43/46204509.jpg',
-        'https://resources.cdn-kaspi.kz/img/m/p/p63/p41/46204511.png'],
+      images: ['https://resources.cdn-kaspi.kz/img/m/p/p24/p44/46204507.png', 'https://resources.cdn-kaspi.kz/img/m/p/pec/p43/46204509.jpg', 'https://resources.cdn-kaspi.kz/img/m/p/p63/p41/46204511.png'],
       link: 'https://kaspi.kz/shop/p/xiaomi-redmi-pad-2-11-djuim-8-gb-256-gb-seryi-140639712/'
     },
     {
       id: 115974804,
       name: 'Микрофон K6 черный, желтый',
-
-      description: 'Он - твой верный спутник в мире интервью и блогов. Петличка беспроводная, объединяющая в себе передовые технологии Bluetooth для iPhone и Android. Всенаправленный, как зоркий журналист, он ловит каждое слово, позволяя тебе провести самоинтервью с идеальным качеством звука. Благодаря двум микрофонам, чистота звучания достигает совершенства, словно эхо тишины. С ним ты можешь не беспокоиться о длительных интервью – до 8 часов работы на одном заряде позволят записать все нужные материалы без перерывов. С этим устройством ты станешь настоящим режиссером своих видеоблогов и аудиозаписей. Оно сочетается не только с камерами и компьютерами с Type-C разъемом, но и устройствами с разъемом Lightning. Всё что нужно это вставить ресивер в разъем, и микрофон подключиться к ресиверу с помощью Bluetooth. Такой микрофон – это как невидимый ассистент, всегда готовый поддержать и помочь создать выдающийся контент. Отныне запись интервью или стрим со своего телефона станет легкой задачей благодаря этому шедевру аудиотехники.Беспроводной петличный микрофон - это удобное и современное устройство для записи качественного звука. Идеальное решение для блогеров, для записи онлайн тренингов, трансляций, презентаций и обучений, в том числе на улице, для тик тока. Компактный беспроводной микрофон для всех устройств с разъёмом TYPE-C. Соедините приёмник с Вашим устройством, включите микрофон и записывайте кристально чистый звук. Благодаря компактным размерам, микрофон можно использовать не только дома, но и вообще в любом месте. Микрофон имеет функцию активного подавления внешних шумов. Микрофон компактный и после нажатия кнопки включения синхронизируется с приемником за пару секунд. Включать Bluetooth не требуется.',
+      description: 'Он - твой верный спутник в мире интервью и блогов...',
       price: 3577,
       rating: 4.2,
       image: 'https://resources.cdn-kaspi.kz/img/m/p/p14/p55/3940198.png',
-      images: ['https://resources.cdn-kaspi.kz/img/m/p/p9c/p9f/3940203.png',
-        'https://resources.cdn-kaspi.kz/img/m/p/pd4/p9f/3940205.png',
-        'https://resources.cdn-kaspi.kz/img/m/p/pf1/p9f/3940206.png'],
+      images: ['https://resources.cdn-kaspi.kz/img/m/p/p9c/p9f/3940203.png', 'https://resources.cdn-kaspi.kz/img/m/p/pd4/p9f/3940205.png', 'https://resources.cdn-kaspi.kz/img/m/p/pf1/p9f/3940206.png'],
       link: 'https://kaspi.kz/shop/p/mikrofon-k6-chernyi-zheltyi-115974804/'
     },
     {
       id: 149777154,
       name: 'Чехол для OPPO A78 серый',
-      description: 'Чехол для OPPO A78 серый — это надёжная защита вашего смартфона, сочетающая практичность и стильный дизайн.\n' +
-        '\n' +
-        '✨ Особенности:\n' +
-        '- ✅ Удобная подставка — для комфортного просмотра видео и общения.\n' +
-        '- 🧱 Силиконовый материал — обеспечивает надёжную защиту от царапин и ударов.\n' +
-        '- 🌱 Точные вырезы — для лёгкого доступа ко всем портам и кнопкам.\n' +
-        '\n' +
-        'Идеально подходит для тех, кто ищет простой и эффективный способ защитить свой OPPO A78, не жертвуя удобством и функциональностью. ',
+      description: 'Чехол для OPPO A78 серый — это надёжная защита...',
       price: 898,
       rating: 4,
       image: 'assets/images/8_1.jpg',
-      images: ['assets/images/8_2.jpg',
-        'assets/images/8_3.jpg',
-        'assets/images/8_4.jpg'],
+      images: ['assets/images/8_2.jpg', 'assets/images/8_3.jpg', 'assets/images/8_4.jpg'],
       link: 'https://kaspi.kz/shop/p/chehol-dlja-oppo-a78-seryi-149777154/'
     },
     {
       id: 117690906,
       name: 'Смарт-часы Nepro100device Man QZ2 50 мм черный-черный',
-      description: 'NEPRO100DEVICE Man QZ2 — это мужские умные часы, которые сочетают стильный дизайн, удобство и передовые технологии. Они заменят сразу несколько устройств: фитнес-браслет, сенсорные часы и смартфон.\n' +
-        '\n' +
-        '\n' +
-        'Главные функции:\n' +
-        '\n' +
-        '\n' +
-        '- Сенсорный IPS-экран – четкое и яркое изображение, удобный интерфейс и моментальный отклик.\n' +
-        '\n' +
-        '\n' +
-        '- Уведомления со смартфона – звонки, сообщения и напоминания всегда у вас на запястье.\n' +
-        '\n' +
-        '\n' +
-        '- Фитнес-функции – измерение пульса,уровня кислорода в крови, шагомер, мониторинг сна, подсчет калорий и напоминания о движении.\n' +
-        '\n' +
-        '\n' +
-
-        '- Режимы тренировок – ведите учет активности в разных видах спорта и анализируйте свои достижения.\n' +
-        '\n' +
-        '\n' +
-        '- Автономность до 7 дней – работайте, тренируйтесь и оставайтесь на связи без постоянной подзарядки.\n' +
-        '\n' +
-        '\n' +
-        '- Водонепроницаемость IP67 – защита от воды и пыли делает эти смарт-часы надежными в любых условиях.\n' +
-        '\n' +
-        '\n' +
-        '- Прочный корпус и стильный циферблат– устойчивое к царапинам стекло и стильный черный ремешок.\n' +
-        '\n' +
-        '\n' +
-        'NEPRO100DEVICE Man QZ2 — этостильные и функциональные умные часы для парней , которые подойдут для работы, спорта и повседневной жизни.',
+      description: 'NEPRO100DEVICE Man QZ2 — это мужские умные часы...',
       price: 20890,
       rating: 4.9,
       image: 'assets/images/9_2.jpg',
-      images: [
-        'assets/images/9_3.jpg',
-        'assets/images/9_4.jpg'],
+      images: ['assets/images/9_3.jpg', 'assets/images/9_4.jpg'],
       link: 'https://kaspi.kz/shop/p/nepro100device-man-qz2-50-mm-chernyi-chernyi-117690906/'
     },
-
     {
       id: 143662037,
       name: 'Дрон AE AE60 Ultra черный',
-      description: 'Квадрокоптер AE AE60 Ultra — высокотехнологичное устройство для любителей аэрофотосъемки и активного отдыха. С максимальной высотой полета 800 метров и дальностью управления до 12 км, он идеально подходит для захватывающих приключений на свежем воздухе.\n' +
-        '\n' +
-        '✨ Особенности:\n' +
-        '- ✅ Три оси стабилизации камеры — обеспечивают четкие и стабильные снимки.\n' +
-        '- 🔋 Два аккумулятора в комплекте — увеличивают время полета до 50 минут.\n' +
-        '- 🌍 Поддержка GPS и ГЛОНАСС — точное позиционирование и навигация.\n' +
-        '- 🎥 Разрешение фотосъемки 7680x4320 — для получения детализированных изображений.\n' +
-        '- 🚀 Автопилот и следование за оператором — легкость в управлении и возможность сосредоточиться на съемке.\n' +
-        '\n' +
-        'Этот квадрокоптер идеально подходит для фотографов, видеографов и любителей активного отдыха, которые хотят запечатлеть свои приключения с высоты птичьего полета. AE AE60 Ultra станет вашим надежным помощником в создании уникального контента и получении незабываемых впечатлений. ',
+      description: 'Квадрокоптер AE AE60 Ultra — высокотехнологичное устройство...',
       price: 249990,
       rating: 4.9,
       image: 'assets/images/10_1.jpeg',
-      images: ['assets/images/10_2.jpeg',
-        'assets/images/10_3.jpeg',
-        'assets/images/10_4.jpeg'],
+      images: ['assets/images/10_2.jpeg', 'assets/images/10_3.jpeg', 'assets/images/10_4.jpeg'],
       link: 'https://kaspi.kz/shop/p/nepro100device-man-qz2-50-mm-chernyi-chernyi-117690906/'
-    },
-
-
+    }
   ];
+
+  ngOnInit() {
+    this.filteredProducts = this.products;
+  }
+
+  filterProducts(): void {
+    const query = this.searchQuery.toLowerCase();
+    this.filteredProducts = this.products.filter(product =>
+      product.name.toLowerCase().includes(query)
+    );
+  }
 }
