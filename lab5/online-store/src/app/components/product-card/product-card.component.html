@@ -17,8 +17,21 @@
       <p>{{ product.description }} </p>
     </details>
     <div class="features">
-      <button (click)="like()" [class.liked]="liked">❤ {{product.likes}}</button>
-      <button (click)="remove()" class="delete">Удалить</button>
+      <button 
+        class="favorite-btn"
+        (click)="toggleFav()">
+        {{ product.isFavorite ? '⭐ In Favorites' : '⭐ Add to Favorites' }}
+      </button>
+      <button 
+        (click)="like()" 
+        [class.liked]="liked">
+        ❤ {{product.likes}}
+      </button>
+      <button 
+        (click)="remove()" 
+        class="delete">
+        Удалить
+      </button>
     </div>
     <div class="icons">
       <a [href]="product.link" target="_blank">

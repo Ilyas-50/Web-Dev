@@ -12,6 +12,7 @@ import {CommonModule} from '@angular/common';
 export class ProductCardComponent {
   @Input() product!: Product;
   @Output() delete = new EventEmitter<number>();
+  @Output() toggleFavorite = new EventEmitter<number>();
 
   whatsapp!: string;
   telegram!: string;
@@ -58,5 +59,9 @@ export class ProductCardComponent {
     if (confirmation) {
       this.delete.emit(this.product.id);
     }
+  }
+  
+  toggleFav() {
+    this.toggleFavorite.emit(this.product.id);
   }
 }

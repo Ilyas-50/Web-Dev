@@ -18,9 +18,30 @@
       <p>Выберите категорию выше, чтобы увидеть список товаров</p>
     </div>
   } @else {
+
+    <!-- ⭐ FAVORITES SECTION -->
+    <h2>⭐ Favorites ({{ favorites.length }})</h2>
+  
+    @if (favorites.length === 0) {
+      <p>Ничего нету)))</p>
+    } @else {
+      <div class="products-list">
+        @for (f of favorites; track f.id) {
+          <product-card
+            [product]="f"
+            (delete)="onDeleteProduct($event)"
+            (toggleFavorite)="toggleFavorite($event)">
+          </product-card>
+        }
+      </div>
+    }
+  
+    <!-- 📦 PRODUCTS LIST -->
     <product-list 
       [products]="products" 
-      (deleteProduct)="onDeleteProduct($event)">
+      (deleteProduct)="onDeleteProduct($event)"
+      (toggleFavorite)="toggleFavorite($event)">
     </product-list>
+  
   }
 </div>

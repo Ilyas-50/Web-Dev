@@ -124,21 +124,6 @@ details p {
   cursor: pointer;
 }
 
-.features button:first-child {
-  background-color: #f5f5f5;
-  color: #444;
-}
-
-.features button:first-child:hover {
-  background-color: #ffe5e5;
-  color: #d90429;
-}
-
-.features button:first-child.liked {
-  background-color: #d90429;
-  color: white;
-}
-
 .features .delete {
   background-color: #f8f8f8;
   color: #555;
@@ -153,4 +138,21 @@ details p {
 
 .features button:active {
   transform: scale(0.96);
+}
+
+.favorite-btn {
+  background-color: #f5f5f5;
+  color: #444;
+  border: 1px solid #ddd;
+}
+
+.favorite-btn:hover {
+  background-color: #fff3cd;
+  color: #e0a800;
+}
+
+.favorite-btn.liked {
+  background-color: #ffc107;
+  color: white;
+  border-color: #ffc107;
 }
