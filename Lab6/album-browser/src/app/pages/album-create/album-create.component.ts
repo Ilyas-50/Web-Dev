@@ -14,21 +14,6 @@ import { AlbumService } from '../../services/album.service';
 
       <form class="form" (ngSubmit)="onSubmit()">
         <div class="form-group">
-          <label for="userId">User ID</label>
-          <input
-            id="userId"
-            type="number"
-            [(ngModel)]="userId"
-            name="userId"
-            min="1"
-            max="10"
-            placeholder="Enter user ID (1-10)"
-            class="input"
-          />
-          <span class="error" *ngIf="errors.userId">{{ errors.userId }}</span>
-        </div>
-
-        <div class="form-group">
           <label for="title">Title</label>
           <input
             id="title"
@@ -90,21 +75,18 @@ import { AlbumService } from '../../services/album.service';
   `]
 })
 export class AlbumCreateComponent {
-  userId: number | null = null;
+  userId: number = 1;
   title = '';
   loading = false;
   serverError = '';
-  errors: { userId?: string; title?: string } = {};
+  errors: { title?: string } = {};
 
   constructor(private albumService: AlbumService, private router: Router) {}
 
   validate(): boolean {
     this.errors = {};
-    if (!this.userId || this.userId < 1 || this.userId > 10) {
-      this.errors.userId = 'User ID is required and must be between 1 and 10.';
-    }
-    if (!this.title || this.title.trim().length < 3) {
-      this.errors.title = 'Title is required and must be at least 3 characters.';
+    if (!this.title || !this.title.trim()) {
+      this.errors.title = 'Title is required.';
     }
     return Object.keys(this.errors).length === 0;
   }
@@ -115,7 +97,7 @@ export class AlbumCreateComponent {
     this.loading = true;
     this.serverError = '';
 
-    this.albumService.createAlbum({ userId: this.userId!, title: this.title.trim() }).subscribe({
+    this.albumService.createAlbum({ userId: this.userId, title: this.title.trim() }).subscribe({
       next: () => {
         this.loading = false;
         this.router.navigate(['/albums']);

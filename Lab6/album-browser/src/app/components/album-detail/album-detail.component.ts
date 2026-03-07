@@ -16,10 +16,9 @@ import { Album } from '../../models/album.model';
       <div *ngIf="loading">Loading album...</div>
 
       <div *ngIf="!loading && album">
-        <h1>Album #{{ album.id }}</h1>
+        <h1>Album Details</h1>
+        
         <p><strong>Title:</strong> {{ album.title }}</p>
-        <p><strong>User ID:</strong> {{ album.userId }}</p>
-
         <div class="edit-section">
           <h2>Edit Title</h2>
           <input type="text" [(ngModel)]="editTitle" class="input" />
