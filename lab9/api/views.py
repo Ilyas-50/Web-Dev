@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, filters
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from .models import Category, Product
@@ -16,5 +16,35 @@ class CategoryViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
 class ProductViewSet(viewsets.ModelViewSet):
-    queryset = Product.objects.all()
+    # ВАЖНО: queryset должен быть здесь, в самом начале класса!
+    queryset = Product.objects.all() 
     serializer_class = ProductSerializer
+    
+    # Настройки поиска и сортировки
+    filter_backends = [filters.SearchFilter, filters.OrderingFilter]
+    search_fields = ['name']
+    ordering_fields = ['name', 'price']
+
+    def get_queryset(self):
+        # Берем базовый набор данных
+        queryset = Product.objects.all()
+        
+        # Фильтрация по категории ?category=1
+        category_id = self.request.query_params.get('category')
+        if category_id:
+            queryset = queryset.filter(category_id=category_id)
+            
+        # Фильтрация по статусу ?is_active=true
+        is_active = self.request.query_params.get('is_active')
+        if is_active:
+            val = is_active.lower() == 'true'
+            queryset = queryset.filter(is_active=val)
+            
+        return queryset
+
+    @action(detail=False, methods=['get'])
+    def active(self, request):
+        products = Product.objects.filter(is_active=True)
+        filtered_products = self.filter_queryset(products)
+        serializer = self.get_serializer(filtered_products, many=True)
+        return Response(serializer.data)
