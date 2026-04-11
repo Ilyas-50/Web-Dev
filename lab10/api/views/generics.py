@@ -19,9 +19,19 @@ class ProductListAPIView(generics.ListCreateAPIView):
 class ProductDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    lookup_field = 'id'
     lookup_url_kwarg = 'product_id'
 
-# Кастомная вьюха для товаров категории
+class ActiveProductListAPIView(generics.ListAPIView):
+    serializer_class = ProductSerializer
+    def get_queryset(self):
+        return Product.objects.filter(is_active=True)
+
+class ExpensiveProductListAPIView(generics.ListAPIView):
+    serializer_class = ProductSerializer
+    def get_queryset(self):
+        return Product.objects.filter(price__gt=100000)
+
 class CategoryProductsAPIView(APIView):
     def get(self, request, id):
         products = Product.objects.filter(category_id=id)
